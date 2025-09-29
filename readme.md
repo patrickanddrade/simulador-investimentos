@@ -38,10 +38,11 @@ Simulador-INVEST/
 ```
 
 1️⃣ Código Python (app.py)
+```
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
-```
+
 def simulador_investimentos(valor_inicial, anos, selic=0.15, ipca=0.04):
     resultados = {}
 
