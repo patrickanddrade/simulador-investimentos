@@ -1,9 +1,11 @@
-# 📊 Simulador de Investimentos  
+<img width="1600" height="741" alt="simulador de investimentos" src="https://github.com/user-attachments/assets/34a3d034-ac88-4342-b114-8b6e11c84b75" />
 
+# 📊 Simulador de Investimentos  
 Simulador de Investimentos em **Python (Flask)** com **HTML + CSS**.  
 Permite calcular e comparar diferentes aplicações financeiras:  
 
 - Tesouro Selic  
+
 - Tesouro Prefixado  
 - Tesouro IPCA+  
 - Poupança  
