@@ -37,6 +37,55 @@ Simulador-INVEST/
 └── README.md # Este arquivo
 ```
 
+1️⃣ Código Python (app.py)
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+```
+def simulador_investimentos(valor_inicial, anos, selic=0.15, ipca=0.04):
+    resultados = {}
+
+    # Tesouro Selic
+    resultados["Tesouro Selic"] = valor_inicial * (1 + selic)**anos
+
+    # Tesouro Prefixado (12% a.a.)
+    taxa_prefixado = 0.12
+    resultados["Tesouro Prefixado"] = valor_inicial * (1 + taxa_prefixado)**anos
+
+    # Tesouro IPCA+ (IPCA 4% + juro real 6%)
+    juro_real = 0.06
+    resultados["Tesouro IPCA+"] = valor_inicial * (1 + ipca + juro_real)**anos
+
+    # Poupança (0,5% ao mês, sem TR)
+    resultados["Poupança"] = valor_inicial * (1 + 0.005)**(anos*12)
+
+    # CDB 100% do CDI (CDI ≈ Selic)
+    resultados["CDB 100% CDI"] = valor_inicial * (1 + selic)**anos
+
+    # Conta bancária (80% da Selic)
+    resultados["Conta Bancária (80% Selic)"] = valor_inicial * (1 + selic*0.8)**anos
+
+    return resultados
+
+@app.route("/", methods=["GET", "POST"])
+def index():
+    resultados = None
+    if request.method == "POST":
+        valor_inicial = float(request.form["valor_inicial"])
+        anos = int(request.form["anos"])
+        selic = float(request.form.get("selic", 0.15))
+        ipca = float(request.form.get("ipca", 0.04))
+        resultados = simulador_investimentos(valor_inicial, anos, selic, ipca)
+    return render_template("index.html", resultados=resultados)
+
+if __name__ == "__main__":
+    app.run(debug=True)
+```
+
+2️⃣ requirements.txt
+```
+Flask==3.1.2
+```
 ---
 
 ## 🖥️ Como rodar o projeto no seu PC
@@ -105,6 +154,8 @@ git add .
 git commit -m "Alterações realizadas"
 git push
 ```
+
+
 ### 📌 Conclusão
 
 Esse projeto demonstra como integrar Python (Flask) com HTML + CSS, criando um sistema simples mas funcional de simulação de investimentos.
